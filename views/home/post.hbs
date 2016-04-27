@@ -1,0 +1,60 @@
+<html>
+<head>
+  {{>head}}
+</head>
+
+<body id="post">
+
+{{>home_header}}
+
+<div class="container content">
+
+  {{#with post}}
+    <div class="post">
+      <div class="post-heading">
+        <h1 class="post-title">{{title}}</h1>
+
+        <div class="post-info">
+          <span class="text-muted">{{detailDate date}}</span>
+          <span class="pull-right"><a href="#comments">{{comments.length}} 个评论</a></span>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+      </div>
+
+      <div class="post-content">
+        <script type="text/plain" id="content">{{{content}}}</script>
+      </div>
+    </div>
+
+    <div id="comments" style="margin-top: 50px;">
+      <h3>评论</h3>
+      <hr>
+      {{#each comments}}
+        <div class="comment">
+          <h5>
+            <img src="{{author.avatar}}">
+            <a href="/user/{{author.id}}">{{author.username}}</a>：</h5>
+          <blockquote>{{content}}</blockquote>
+        </div>
+      {{/each}}
+    </div>
+  {{/with}}
+
+  <form>
+    <div class="form-group">
+      <textarea name="content" id="new-comment" class="form-control"></textarea>
+      <div class="alert alert-danger" style="display: none;"></div>
+    </div>
+
+    <div class="form-group">
+      {{#if req.user}}
+        <a class="btn btn-primary" onclick="comment()">发布</a>
+      {{else}}
+        <a class="btn btn-primary" href="/account/login">登录</a>
+      {{/if}}
+    </div>
+  </form>
+</div>
+</body>
+</html>

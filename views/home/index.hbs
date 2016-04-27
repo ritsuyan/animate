@@ -1,0 +1,167 @@
+<html>
+<head>
+  {{>head}}
+  <meta charset="utf-8" />
+  <title>Animate</title>
+  <link rel="stylesheet" href="stylesheets/style.css">
+     <link rel="stylesheet" href="stylesheets/focus.css">
+     <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+     <script type="text/javascript" src="javascripts/main.js"></script>
+</head>
+
+<body>   
+
+
+     <section class="nav">
+
+     <span class="left"><a href="#">录入新动画</a> <a href="#">动画管理</a></span>
+     <span class="right" style="margin-top: -10px;"> {{>user_nav}}</span>
+     
+     </section>
+     <div class="clearfix"></div>
+     <div class="main_content">
+     
+        <div class="logo">
+             <h1 href="" class="left">
+               Animate
+             </h1>
+             <div class="searchbox right">
+                  <input id="search" type="text" placeholder="search movie..." />
+                  <span href='' onclick="searchShow()" style="display:inline-block">Search</span>
+             </div>
+        </div>   <!--logo end -->
+        <div class="clearfix"></div>
+<div class="slider">
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <div class="slide"> <img src="img/5.jpg" alt="jQuery Slider with CSS Transitions"> </div>
+      <div class="slide"> <img src="img/2.jpg" alt="jQuery Slider with CSS Transitions"> </div>
+      <div class="slide"> <img src="img/3.jpg" alt="jQuery Slider with CSS Transitions"> </div>
+      <div class="slide"> <img src="img/4.jpg" alt="jQuery Slider with CSS Transitions"> </div>
+    </div>
+  </div>
+</div>
+<script src="javascripts/slider.js"></script> 
+<script type="text/javascript">
+     (function() {
+          Slider.init({
+               target: $('.slider'),
+               time: 6000
+          });
+     })();
+</script>
+
+<div style="text-align:center;clear:both;">
+</div>
+  </div>
+</div>       <!--banner end -->  
+        <ul class="tagWrap">
+            <li class="active tag"><a href="#" class="">首页</a></li>
+            <li class="tag" onclick="tagShow(event)"><a href="#">日常</a></li>
+            <li class="tag"><a href="#">小说</a></li>
+              <li class="tag" onclick="tagShow(event)"><a href="#">神作</a></li>
+               <li class="tag"><a href="#">小说</a></li>
+                <li class="tag"><a href="#">小说</a></li>
+                 <li class="tag"><a href="#">小说</a></li>
+                  <li class="tag"><a href="#">小说</a></li>
+                   <li class="tag"><a href="#">小说</a></li>
+                    <li class="tag"><a href="#">小说</a></li>
+                     <li class="tag"><a href="#">小说</a></li>
+                      <li class="tag"><a href="#">小说</a></li>
+                       <li class="tag"><a href="#">小说</a></li>
+                        <li class="tag"><a href="#">小说</a></li>
+                         <li class="tag"><a href="#">小说</a></li>
+        </ul>                            <!--ul end --> 
+        <div id="animContent">
+            {{#each pager.results}}
+                <a href="/post/detail/{{id}}" style="display:inline-block;">
+                <div class="anim" >
+
+                    <img src={{poster}} alt="封面" />
+                    <h2 id="title">{{title}}</h2>
+                    <p style="display:none" class={{tag}}></p>
+                    <dl id="year">上映年份 : {{year}}</dl>
+                    <a href="#" id="url">查看详情</a>
+                    <div class="clearfix"></div>
+                    <p id="content">{{excerpt content}}</p>
+
+                </div>                   <!-- anim   end    -->
+                </a>
+            {{/each}}
+        </div>                           <!--animContent end -->
+                 <div class="clearfix"></div>
+     <nav class="page-nav">
+         <ul class="pagination">
+             {{#with pager}}
+                 <li {{#unless prev}}class="disabled"{{/unless}}>
+                     <a href="?page={{prev}}">&laquo;</a>
+                 </li>
+                 {{#each pages}}
+                     <li {{#equal ../current this}}class="active"{{/equal}}><a href="?page={{this}}">{{this}}</a></li>
+                 {{/each}}
+                 <li {{#unless next}}class="disabled"{{/unless}}>
+                     <a href="?page={{next}}">&raquo;</a>
+                 </li>
+             {{/with}}
+         </ul>
+     </nav>
+     </div>
+
+
+
+
+            <script>
+
+                function tagShow(event) {
+                    var e = event.target || event.srcElement;
+                    var $e = $(e);
+                    if(e.tagName !== "LI") return;
+                    var tagName = $e.children().text();
+                    console.log(e);
+                    var tagAry = $('.anim p:hidden');
+                    $('#animContent').empty();
+                    for(var i = 0 , tagSingle ; tagSingle = tagAry[i++];){
+                        var $tagSingle = $(tagSingle);
+                        if ($tagSingle.attr('class') === tagName) {
+                            $('#animContent').append($tagSingle.parent());
+                            $e.addClass('active');
+                        }
+                    }
+                }
+
+                function searchShow(){
+                    var inputValue = $('#search').val();
+                    console.log(inputValue);
+                    var tagAry = $('.anim h2[id]');
+                    $('#animContent').empty();
+                    for(var i = 0 , tagSingle ; tagSingle = tagAry[i++];){
+                        var $tagSingle = $(tagSingle);
+                        if ($tagSingle.text() === inputValue) {
+                            $('#animContent').append($tagSingle.parent());
+                        }
+                    }
+
+                }
+            </script>
+</body>
+
+
+   
+
+ <!-- <div class="row">
+    {{#each users}}
+      <div class="col-lg-4">
+        <img class="img-circle" src="{{avatar}}" width="140" height="140">
+
+        <h2>{{title}}</h2>
+
+        <p>{{description}}</p>
+
+        <p><a class="btn btn-default" href="/user/{{id}}" role="button">访问 &raquo;</a></p>
+      </div>
+    {{/each}}       
+  </div>
+  -->
+
+
+</html>

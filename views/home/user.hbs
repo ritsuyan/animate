@@ -1,0 +1,51 @@
+<html>
+<head>
+  {{>head}}
+</head>
+
+<body id="blog-home">
+
+{{>home_header}}
+
+<div class="container content">
+
+  {{#each pager.results}}
+    <div class="post">
+      <div class="post-heading">
+        <h2 class="post-title"><a class="inverse" href="/post/{{id}}">{{title}}</a></h2>
+
+        <div class="post-info">
+          <p>
+            <span class="text-muted">{{detailDate date}}</span>
+            <span class="pull-right"><a href="/post/{{id}}#comments">{{comments.length}} 个评论</a></span>
+          </p>
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="post-excerpt">
+        <p>{{excerpt content}}</p>
+      </div>
+    </div>
+    <hr>
+  {{/each}}
+
+  <nav class="page-nav">
+    <ul class="pagination">
+      {{#with pager}}
+        <li {{#unless prev}}class="disabled"{{/unless}}>
+          <a href="?page={{prev}}">&laquo;</a>
+        </li>
+        {{#each pages}}
+          <li {{#equal ../current this}}class="active"{{/equal}}><a href="?page={{this}}">{{this}}</a></li>
+        {{/each}}
+        <li {{#unless next}}class="disabled"{{/unless}}>
+          <a href="?page={{next}}">&raquo;</a>
+        </li>
+      {{/with}}
+    </ul>
+  </nav>
+
+</div>
+</body>
+</html>

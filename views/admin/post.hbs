@@ -1,0 +1,58 @@
+<html>
+<head>
+  {{>head}}
+</head>
+
+<body id="edit">
+
+<div class="container-fluid">
+
+  {{>admin_header}}
+
+  <div class="row">
+    <div class="col-sm-2">
+      {{>profile_nav this}}
+    </div>
+
+    <div class="col-sm-10">
+
+      <div class="row">
+        <div class="col-sm-6">
+          <form class="form" method="post" action="/admin/post/{{id}}">
+            <div class="form-group">
+              <label for="title">标题</label>
+              <input id="title" class="form-control" name="title" value="{{post.title}}" required="" autofocus="">
+            </div>       <!--title end -->
+              <div class="form-group">
+              <label for="poster">海报</label>
+              <input id="poster" class="form-control" name="poster" value="{{post.poster}}" required="" autofocus="">
+            </div>      <!--img  end  -->  
+               <div class="form-group">
+              <label for="year">上映年份</label>
+              <input id="year" class="form-control" name="year" value="{{post.year}}" required="" autofocus="">
+            </div>      <!--year  end  -->   
+                <div class="form-group">
+              <label for="year">Tag</label>
+              <input id="tag" class="form-control" name="tag" value="{{post.tag}}" required="" autofocus="">
+            </div>      <!--tag  end  -->           
+            <textarea name="content" class="form-control" id="content">{{post.content}}</textarea>
+          </form>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>预览</label>
+          <div id="preview"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="alert alert-danger" style="display: none;"></div>
+
+      <a class="btn btn-primary pull-right" onclick="save();">保存</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
