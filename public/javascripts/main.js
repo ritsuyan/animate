@@ -1,3 +1,8 @@
+var express = require('express');
+var User = require('../../models/user.js');
+var Post = require('../../models/post.js');
+var Collect = require('../../models/collect.js');
+var router = express.Router();
 $().ready(function () {
 
 
@@ -31,12 +36,29 @@ $().ready(function () {
 		}
 
 	}
+
+
+	function collect(){
+		var $title = $('#title').text();
+		console.log($title);
+
+		User.findById(req.params.id, function (err, user) {
+			if (err) return next(err);
+
+			var collect = new Collect({content: $title});
+			collect.save(function (err, collcurr) {
+				if (err) return next(err);
+
+				user.collects.push(collcurr);
+				user.save(function (err, post) {
+					if (err) return next(err);
+
+				});
+			});
+		});
+
+
+	}
  });
 
 
-/*
-*   设计用户注册登陆模型，必须设置第三方比如微博登陆
-* 	构建新建动画模型，用户添加新动画后必须通过tag访问
-*   进入详情页后，可以发表评论，收藏，喜欢等功能。
-* 	考虑中:评论社交功能，关注其他用户，私信。
-*/

@@ -94,4 +94,41 @@ router.route('/post/:id')
         });
     });
 
+
+
+
+router.route('/detail/:id')
+    .get(function (req, res, next) {
+        Post.findById(req.params.id)
+            .populate('author comments')
+            .exec(function (err, post) {
+                if (err) return next(err);
+
+                Comment.populate(post.comments, 'author');
+                res.render('home/detail', {
+                    post: post,
+                    title: post.title,
+                    author: post.author
+                });
+            });
+    })
+    .post(authRequired, function (req, res, next) {
+        Post.findById(req.params.id, function (err, post) {
+            if (err) return next(err);
+
+            var comment = new Comment({author: req.user.id, content: req.body.content});
+            comment.save(function (err, comment) {
+                if (err) return next(err);
+
+                post.comments.push(comment.id);
+                post.save(function (err, post) {
+                    if (err) return next(err);
+
+                    res.send({author: req.user.username, content: comment.content});
+                });
+            });
+        });
+    });
+
+
 module.exports = router;

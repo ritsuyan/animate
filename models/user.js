@@ -24,7 +24,8 @@ var UserSchema = new Schema({
     activeToken: String,
     activeExpires: Date,
     resetPasswordToken: String,
-    resetPasswordExpires: Date
+    resetPasswordExpires: Date,
+    collects: [{type: String, ref: 'Comment'}]
 });
 
 UserSchema.plugin(passportLocalMongoose, {

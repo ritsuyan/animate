@@ -1,0 +1,115 @@
+
+<html>
+<head>
+    {{>head}}
+<link rel="stylesheet" href="/stylesheets/detail.css">
+<script>
+    var StackBlur = require("stackblur-canvas");
+    StackBlur.image(poster, canvas,100, false);
+</script>
+</head>
+
+<body id="post">
+
+
+
+
+    {{#with post}}
+        <!--<span class="pull-right"><a href="#comments">{{comments.length}} 个评论</a></span>-->
+        <div class="wrapBack">
+                <img src="/images/wrap.jpg" />
+        </div>                                <!-- wrapback  end-->
+        <div class="back-footer"></div>
+
+
+        <div class="content-detail">
+
+
+        <div class="left banner-data">
+        <img src={{poster}} alt="封面" id="poster"/>
+        <h2 id="title">{{title}}</h2>
+        <p style="display:none" class={{tag}}></p>
+            上映年份
+
+
+
+        <dl id="year"> {{year}}</dl>
+        <div class="clearfix"></div>
+
+        </div>
+
+        <div class="left main">
+        <ul class="douban">
+        <li><a href="#">豆瓣主页</a></li>
+        <li><a href="#">豆瓣购票</a></li>
+        <li onclick="collect()"><a href="#">收藏</a></li>
+        </ul>
+
+            <div class="clearfix"></div>
+
+        <div class="douban-data right">
+        <span>4512</span><span>8884</span><span>6488</span><span>1234</span>
+        </div>
+
+
+        <div class="douban-data-title right">
+        <span>评分人数</span><span>评分人数</span><span>评分人数</span><span>评分人数</span>
+        </div>
+
+         <div class="mark">8.2</div>
+
+        <div class="right story">
+
+        <h3>故事简介</h3>
+        <p id="content">{{excerpt content}}</p>
+
+        <p>主演</p>
+        <div class="actor">
+
+        </div>
+
+        </div>
+        </div>     <!-- right main -->
+
+
+        </div>                         <!-- content detail -->
+        <div class="clearfix"></div>
+
+
+
+
+        <div id="comments" style="margin-top: 400px;">
+            <h3>评论</h3>
+            <hr>
+            {{#each comments}}
+                <div class="comment">
+                    <h5>
+                        <img src="{{author.avatar}}">
+                        <a href="/user/{{author.id}}">{{author.username}}</a>：</h5>
+                    <blockquote>{{content}}</blockquote>
+                </div>
+            {{/each}}
+        </div>
+
+
+
+
+    {{/with}}
+
+    <form>
+        <div class="form-group">
+            <textarea name="content" id="new-comment" class="form-control"></textarea>
+            <div class="alert alert-danger" style="display: none;"></div>
+        </div>
+
+        <div class="form-group">
+            {{#if req.user}}
+                <a class="btn btn-primary" onclick="comment()">发布</a>
+            {{else}}
+                <a class="btn btn-primary" href="/account/login">登录</a>
+            {{/if}}
+        </div>
+    </form>
+</div>
+</body>
+</html>

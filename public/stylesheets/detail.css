@@ -1,0 +1,100 @@
+.clearfix{
+    clear: both;
+}
+.left{
+     float: left;
+ }
+.right{
+    float: right;
+}
+
+
+
+/*******************   public css *************************/
+body{
+     position: relative;
+}
+.wrapBack img{
+
+    width:100%;
+     height:50%;
+}
+.content-detail{
+     width:90%;
+     height:50%;
+     background-color: #2FD8FF;
+     position: absolute;
+     margin: -200px 0 10% 5%;
+     z-index: 100 !important;
+     box-shadow: 1px;
+     padding-left: 50px;
+     padding-top: 30px;
+
+}
+
+#poster{
+    width: 200px;
+    height: 283px;
+    margin-top: -100px;
+}
+
+
+.banner-data{
+     width : 20%;
+
+}
+.main{
+     width: 40%;
+     padding-left: 2%;
+}
+.douban{
+      float: left;
+}
+.douban li{
+      display: inline-block;
+      background-color: #BEFFFF;
+       width:104px;
+      height: 36px;
+        line-height: 36px;
+    text-align: center;
+        margin:5px 10px;
+        border-radius: 8px;
+}
+.douban li a{
+    color:  #2FD8FF;
+}
+
+.douban li:hover{
+    box-shadow: 0 0 13px #6B6B6B;
+    border-radius: 0px;
+
+}
+.douban-data span{
+    display: inline-block;
+    margin: 15px;
+}
+ .douban-data-title span{
+     display: inline-block;
+     margin: 5px;
+}
+
+ .mark{
+     width:50px;
+     height: 50px;
+     border-radius: 50%;
+     background-color: white;
+     color:#2FD8FF;
+     text-align: center;
+     line-height: 45px;
+     font-size: 1.3em;
+     position: absolute;
+
+ }
+
+ #comments,form{
+       margin-left: 10%;
+       width: 60%;
+ }
+ .story #content{
+     color: white;
+ }
