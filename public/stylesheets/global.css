@@ -1,60 +1,146 @@
-/* GLOBAL
--------------------------------------------------- */
-body {
-  color: #5a5a5a;
-}
-footer{
-  background: #000000;
-  padding: 15px;
-}
-footer a{
-  color: white;
+/* Public
+------------------------- */
+
+html,body{
+    font-size: 100px;  // vw/3.75   4
+    overflow-y : hidden;
 }
 
-.banner{
-  position: relative;
-  height: 280px;
-  background-image: url('/images/banner.jpeg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50% 30%;
-  text-align: center;
+.elem-center{
+     margin : 0 auto;
+     text-align: center;
+}
+.left{
+     float: left;
+}
+.separate-line{
+     display:block;
+     width:100%;
+     height:.03rem;
+     background: #ccc;
+     margin-top: .15rem;
+    margin-bottom: .15rem;
+}
+.clear{
+     clear: both;
 }
 
-.banner .blog-intro{
-  margin-top: 120px;
-  padding: 15px;
-  color: white;
+        /* TITLE
+        -------------------------  */
+h3{
+    margin: 0 ;
+
 }
-.banner .blog-intro .avatar{
-  width: 50px;
-  height: 50px;
+.curr-title{
+     background-color: #ff6666;
+     color:white;
+     text-align: center;
+    line-height: 0.3rem;
+    font-size: .2rem;
 }
-.banner .blog-intro .title{
-  font-size: 28px;
+.logo{
+     background: #dd514c;
+     width:.66rem;
+     height: .36rem;
+     border-radius: .14rem;
+     color: whitesmoke;
+     font-size: .2rem;
+     margin-top: .2rem;
 }
-.banner .blog-intro .description{
-  font-size: 18px;
+.loanable-limit h3{
+    font-size: .18rem;
+    margin-top: .25rem;
+    color: #888;
+    font-weight: bold;
 }
 
-.post .post-title a{
-  color: #777;
+.loanable-limit p{
+    font-size: .36rem;
+    margin-top: .35rem;
+    color: #ff6666;
+    font-weight: bold;
 }
-.post .post-title a:hover{
-  color: #333;
-  text-decoration: none;
-}
-
-#home-header .navbar-nav>li>a, #home-header .navbar-brand{
-  color: #ccc;
-}
-#home-header .navbar-nav>li>a:hover{
-  color: white;
+#min-lend{
+    border: none;
+    margin-left: .6rem;
 }
 
-.comment img{
-  height: 45px;
-  width: 45px;
-  border-radius: 45px;
-  margin-right: 10px;
+.loan-detail{
+     font-size: .18rem;
+     color: black;
+    /* font-weight: bold; */
+    padding: 0 .2rem;
+    margin-top: .4rem;
+
+}
+
+.loan-choose-month{
+    margin-top: .25rem;
+}
+.loan-month{
+     background: ghostwhite;
+
+     display: inline-block;
+     width:25%;
+     height:.4rem;
+     line-height: .4rem;
+     margin-right: .45rem;
+    text-align: center;
+    color:#ff6666;
+     border-radius: 10%;
+
+}
+.loan-month-active{
+    background: rgba(255,102,102,1);
+    color:white;
+}
+.loan-month:last-child{
+     margin-right: 0;
+}
+
+.month-repay{
+    display: inline-block;
+    margin-left: 1.3rem;
+    color: #ff6666;
+    font-size: .16rem;
+}
+#service-payee{
+     color:#ccc;
+}
+.loan-button{
+     width:3.47rem;
+     height: .45rem;
+     text-align: center;
+     line-height: .45rem;
+     background: #ff6b35;
+     color:white;
+     border:none;
+     border-radius: .04rem;
+    margin-top: .3rem;
+    margin-left: .16rem;
+    margin-bottom: .15rem;
+}
+.protocol{
+    margin-left: .16rem;
+    font-size: .15rem;
+}
+#protocol-book{
+     margin-left:.05rem;
+}
+.footer{
+     font-size: .18rem;
+     width:100%;
+     background: rgba(204,204,204,0.5);
+    color:white;
+     position: absolute;
+    bottom: 0%;
+     font-weight: bold;
+
+}
+.footer-item-active{
+    color: #ff6666;
+}
+.footer-item{
+     width: 33%;
+     height: 100%;
 }

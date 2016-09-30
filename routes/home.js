@@ -31,6 +31,16 @@ router.get('/', function (req, res, next) {
     });
 });
 
+router.get('/home/lend', function (req, res, next) {
+    res.render('home/index',{})
+})
+router.get('/home/explore', function (req, res, next) {
+     res.render('home/explore',{})
+})
+router.get('/home/explore', function (req, res, next) {
+    res.render('home/explore',{})
+})
+
 router.get('/home', authRequired, function (req, res, next) {
     res.redirect('/user/' + req.user.id);
 });
