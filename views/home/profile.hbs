@@ -1,0 +1,50 @@
+<html>
+<head>
+    {{>head}}
+    <meta charset="utf-8" />
+    <title>Frogloan</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/focus.css">
+    <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/main.js"></script>
+</head>
+
+<body>
+
+{{>title_nav}}
+
+<div class="profile-container">
+   <div class="container-wrap">
+    <div class="account-con">
+         <p class="user-name"> {{username}}</p>
+         <p class="user-phone-number"> {{userphonenum}}</p>
+    </div>
+
+    <div class="loanable-limit elem-center profile-ban">
+        <h3>可用余额(元)</h3>
+        <p class="loanable-limit-value">
+            3000
+        </p>
+    </div>
+   </div>
+
+    <div class="profile-detail">
+        <p class="detail-item bill-item"> <i class="bill-icon"></i> 我的账单 <span class="item-con">当前应还总额   <a id="repay-val">{{repayval}}</a></span> <i class="enter-icon"></i></p>
+        <i class="separate-line"></i>
+        <p class="detail-item rewrite-item"> <i class="rewrite-icon"></i> 修改信息    <i class="enter-icon"></i></p>
+        <i class="separate-line"></i>
+        <p class="detail-item coupon-item"> <i class="coupon-icon"></i> 优惠券    <i class="enter-icon"></i></p>
+        <i class="separate-line"></i>
+        <p class="detail-item more-item"> <i class="more-icon"></i> 更多    <i class="enter-icon"></i></p>
+        <i class="separate-line"></i>
+
+        <p class="service-phone">客服电话 400-666-2326</p>
+        <button class="loginout">安全退出</button>
+
+
+    </div>
+
+</div>
+{{>footer}}
+</body>
+</html>

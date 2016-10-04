@@ -9,6 +9,10 @@ var User = require('../models/user.js');
 var Comment = require('../models/comment.js');
 require('mongoose-query-paginate');
 
+router.get('/', authRequired, function (req, res, next) {
+    res.redirect('/user/' + req.user.id);
+});
+
 router.get('/', function (req, res, next) {
     User.find({}, function (err, users) {
         if (err) return next(err);
@@ -32,19 +36,34 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/home/lend', function (req, res, next) {
-    res.render('home/index',{})
+    res.render('home/index',{
+         title : '借款'
+    })
 })
 router.get('/home/explore', function (req, res, next) {
-     res.render('home/explore',{})
+     res.render('home/explore',{
+          title : '探索'
+     })
 })
-router.get('/home/explore', function (req, res, next) {
-    res.render('home/explore',{})
+router.get('/home/profile', function (req, res, next) {
+    res.render('home/profile',{
+        title : '主页',
+        username: '颜卿',
+        userphonenum : '15800984101'
+    })
+})
+router.get('/home/user', function (req, res, next) {
+    res.render('home/user',{}
+    )
 })
 
 router.get('/home', authRequired, function (req, res, next) {
     res.redirect('/user/' + req.user.id);
 });
 
+router.get('/home/lend', authRequired, function (req, res, next) {
+    res.redirect('/user/' + req.user.id);
+});
 router.get('/user/:id', function (req, res, next) {
     User.findById(req.params.id, function (err, author) {
         if (err || !author) return next(err);
