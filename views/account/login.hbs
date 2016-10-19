@@ -10,14 +10,16 @@
 
     <h3>登录</h3>
 
-    <form class="form-inline" method="post">
+    <form class="form-inline" method="post" action="/account/login">
       <input name="username" type="text"
              class="form-control" placeholder="在这里输入手机号码...">
       <input name="password" type="password"
              class="form-control" placeholder="在这里输入密码...">
 
       <a id='loginbtn' class="btn btn-success" class="login" onclick="login();">登录</a>
+        <input type="submit" value="Log In" class="btn btn-success"/>
     </form>
+
 
     <div class="operation">
       <a class="btn btn-link" href="/account/register">马上注册</a>

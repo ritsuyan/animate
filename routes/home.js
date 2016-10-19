@@ -1,13 +1,35 @@
 /**
  * Created by harttle on 1/7/15.
  */
-
+var bodyParser = require('body-parser');
 var router = require('express').Router();
 var Post = require('../models/post.js');
 var authRequired = require('../utils/auth-required');
 var User = require('../models/user.js');
 var Comment = require('../models/comment.js');
 require('mongoose-query-paginate');
+
+
+
+
+var MessageXSend = require('../message_api/messageXSend.js');
+
+var messageXSend = new MessageXSend();
+
+var realcode ;
+
+function crevertiCode(){
+    return  Math.floor( Math.random() * 899999) + 100000
+}
+
+
+
+
+
+
+
+
+
 
 router.get('/', authRequired, function (req, res, next) {
     res.redirect('/user/' + req.user.id);

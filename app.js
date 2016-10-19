@@ -11,14 +11,16 @@ var hbs = require('hbs');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var User = require('./models/user');
+var router = require('express').Router();
 var config = require('./config');
 mongoose.connect(config.mongodb);
 
 // passport setup
+/*
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
+*/
 var app = express();
 
 app.set('env', process.env.NODE_ENV || 'development');
@@ -84,12 +86,57 @@ app.listen(app.get('port'), function() {
 });
 
 
-// test
-//var Cat = mongoose.model({
-//       name:String,
-//       age : Number,
-//});
-//var kitt = new Cat({name:'Ritsu',age:26});
-//kitt.save(function (err) {
-//    if(err)return;
-//})
+
+
+
+var passport = require('passport')
+    , LocalStrategy = require('passport-local').Strategy;
+
+passport.use('local', new LocalStrategy(
+    function(username, password, done) {
+        User.findOne({ username: username }, function(err, user) {
+            if (err) { return done(err); }
+            if (!user) {
+                return done(null, false, { message: '用户名不存在.' });
+            }
+            console.log(user)
+            if (!user.validPassword(password)) {    // mean the user post pwd
+                return done(null, false, { message: '密码不匹配.' });
+            }
+
+
+            return done(null, user);
+        });
+    }
+));
+
+passport.serializeUser(function (user, done) {//保存user对象
+    done(null, user);//可以通过数据库方式操作
+});
+
+passport.deserializeUser(function (user, done) {//删除user对象
+    done(null, user);//可以通过数据库方式操作
+});
+
+
+
+//app.get('/', routes.index);
+app.post('/account/login',
+    passport.authenticate('local', {
+        successRedirect: '/home/profile',
+        failureRedirect: '/'
+    }));
+
+app.all('/home/profile', isLoggedIn);
+//app.get('/users', user.list);
+app.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+
+    res.redirect('/');
+}

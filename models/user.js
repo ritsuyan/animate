@@ -1,9 +1,10 @@
 var mongoose = require('mongoose');
+var  bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var UserSchema = new Schema({
-    username: String,
+    username: Number,
     password: String,
     avatar: {
         type: String,
@@ -29,15 +30,19 @@ var UserSchema = new Schema({
 });
 
 UserSchema.plugin(passportLocalMongoose, {
-    incorrectUsernameError: '用户名不正确',
+    incorrectUsernameError: '手机号码格式不正确',
     incorrectPasswordError: '密码不正确',
-    userExistsError: '用户名已存在'
+    userExistsError: '此手机号码已被注册'
 });
 
+//should validate the phone number
+UserSchema.methods.encryptPassword = function(password){
+    return bcrypt.hashSync(password,bcrypt.genSaltSync(5),null);
+};
 
-UserSchema.path('username').validate(function (email) {
-    var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-    return emailRegex.test(email);
-}, '用户名不是有效的电子邮件地址');
+
+UserSchema.methods.validPassword = function(password){
+    return bcrypt.compareSync(password,this.hash);
+};
 
 module.exports = mongoose.model('User', UserSchema);

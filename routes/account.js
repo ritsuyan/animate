@@ -6,37 +6,83 @@ var Post = require('../models/post');
 var crypto = require('crypto');
 var fs = require('fs');
 var config = require('../config');
+var bodyParser = require('body-parser');
 require('mongoose-query-paginate');
+
+
+
+var MessageXSend = require('../message_api/messageXSend.js');
+
+var messageXSend = new MessageXSend();
+
+var realcode ;
+
+function crevertiCode(){
+    return  Math.floor( Math.random() * 899999) + 100000
+}
+
+
+
+router.route('/sendcode')
+            .get(function (req, res) {
+
+            })
+            .post(function (req, res) {
+                console.log(req.body)
+
+                var  phoneNumber  = req.body.phonenum ;
+                console.log(phoneNumber)
+
+                messageXSend.add_to(phoneNumber);  // must be string ???
+                realcode = crevertiCode();
+                console.log(realcode)
+                messageXSend.add_var('code',realcode);
+                messageXSend.add_var('time','60秒');
+                messageXSend.set_project('fwgU');
+                messageXSend.xsend();
+
+
+
+            })
+
+
+
+
 
 router.route('/register')
     .get(function (req, res) {
 
-
-
         res.render('account/register', {title: '注册'});
     })
     .post(function (req, res, next) {
+        /*
+        *    start the  identifying code
+        *
+        * */
+
+        console.log('code start ' + realcode)
+        console.log(req.body.vertifycode)
+        console.log(req.body.username)
+        console.log(req.body.password)
+
+
+     /*   if(req.body.vertifycode !== realcode){
+                //  set verticode wrong
+                return res.status(400).send('验证码不对哦')
+        }
+    */
         User.register(new User({username: req.body.username}), req.body.password,
             function (err, user) {
-                if (err)
+                if (err) {
+                    console.log('bad test')
                     return res.status(400).send(err.message || '未知原因');
+                }
 
-                crypto.randomBytes(20, function (err, buf) {
-                    user.activeToken = user._id + buf.toString('hex');
-                    user.activeExpires = Date.now() + 24 * 3600 * 1000;   // 24 hour
-
-                    var link = config.schema + config.outerHost + ':' + config.outerPort + '/account/active/' + user.activeToken;
-                    mailer.send({
-                        to: req.body.username,
-                        subject: '欢迎注册 Animate',
-                        html: '请点击 <a href="' + link + '">此处</a> 激活。'
-                    });
-
-                    user.save(function(err, user){
+                user.save(function(err, user){
                         if(err) return next(err);
-                        res.send('已发送邮件至' + user.username + '，请在24小时内按照邮件提示激活。');
-                    });
-                });
+                        res.send("已经成功注册啦>’<").redirect('/account/login');
+               });
+
             });
     });
 
@@ -151,17 +197,20 @@ router.route('/reset/:token')
         });
     });
 
+
+
 router.route('/login')
     .get(function (req, res) {
         res.render('account/login', {title: '登录'});
     })
     .post(passport.authenticate('local'), function (req, res, next) {
-        if (!req.user.active) {
+    /*    if (!req.user.active) {
             req.logout();   // delete req.user & clear login session
             res.status(400);
             return res.send('Unactived');
         }
-        res.end();
+    */
+        res.redirect('/home/profile');
     });
 
 router.get('/logout', function (req, res) {

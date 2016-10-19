@@ -2,6 +2,10 @@
  * Created by harttle on 1/6/15.
  */
 
+
+
+
+
 var msgMap = {
     "Unauthorized": '用户名或密码不正确',
     "Unactived": '该用户尚未激活'
@@ -11,15 +15,12 @@ function login(){
     if(!simpleValidate()) return;
     $.post('', $('form').serialize())
         .done(function(){
-            window.location = getQueryStringValue('next') || '/home';
+            window.location = '/home';
         })
         .fail(function(e){
             warn(msgMap[e.responseText] || '未知错误');
         });
 
-    function getQueryStringValue (key) {
-        return unescape(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + escape(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-    }
 }
 
 function resetPassword(){
@@ -57,11 +58,11 @@ function simpleValidate(){
     var password = $('[name=password]').val();
 
     if(username.length === 0){
-        warn('邮件不能为空');
+        warn('手机号码不能为空');
         return false;
     }
-    if(!validateEmail(username)){
-        warn('邮件不合法');
+    if(!validatePhone(username)){
+        warn('手机号码格式不正确');
         return false;
     }
     if(password.length === 0){
@@ -81,7 +82,64 @@ function info(msg){
     $('.alert-success').html(msg).show();
 }
 
-function validateEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+function validatePhone(phone) {
+    var re = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; ;
+    return re.test(phone);
 }
+
+
+
+function sendVerticyCode (){
+
+  //  event.preventDefault()
+
+    var phoneNumber = $('[name=username]').val().trim();
+    console.log(phoneNumber)
+
+
+
+
+  /*  if(Number(phoneNumber) !== NaN){
+        $.ajax({
+            type: "POST",
+            url: "/sendcode",
+            data: Number(phoneNumber),
+            success: function(msg){
+                alert( "phone number is " + msg );
+            }
+        });
+     }
+    */
+}
+
+function checkCode(realcode){
+       var userfill = $('[name=vertifycode]').val().trim();
+
+      if(realcode !== userfill){
+          return false;
+      }
+}
+
+
+
+$(document).ready(function () {
+    $('.vertify-btn').on('click', function (evt) {
+        evt.preventDefault();
+
+        var phoneNumber = $('[name=username]').val().trim();
+        console.log(phoneNumber)
+
+        $.ajax({
+             url:'/account/sendcode',
+            type:'POST',
+            data:{'phonenum': phoneNumber},
+            success: function (data) {
+                if(data.success){
+                     alert('ok')
+                }
+            }
+        })
+    })
+})
+
+
